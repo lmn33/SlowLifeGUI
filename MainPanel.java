@@ -17,6 +17,8 @@ public class MainPanel extends JPanel {
 
     public int _r = 1000;
     
+	private boolean[][] nextIter;
+	
     private boolean _running = false;
 
     public int getCellsSize() {
@@ -32,7 +34,7 @@ public class MainPanel extends JPanel {
     }
 
     private int convertToInt(int x) {
-	int c = 0;
+	/*int c = 0;
 	String padding = "0";
 	while (c < _r) {
 	    String l = new String("0");
@@ -41,8 +43,8 @@ public class MainPanel extends JPanel {
 	}
 	
 	String n = padding + String.valueOf(x);
-	int q = Integer.parseInt(n);
-	return q;
+	int q = Integer.parseInt(n);*/
+	return x;
     }
     
     private int getNumNeighbors(int x, int y) {
@@ -68,7 +70,7 @@ public class MainPanel extends JPanel {
 	if (_cells[x][upY].getAlive())        { numNeighbors++; }
 	if (_cells[x][downY].getAlive())      { numNeighbors++; }
 	    
-	return convertToInt(numNeighbors);
+	return numNeighbors;
 
     }
 
@@ -110,7 +112,7 @@ public class MainPanel extends JPanel {
     
     private void calculateNextIteration() {
 	System.out.println("\tCalculating..");
-	boolean[][] nextIter = new boolean[_size][_size];
+	//boolean[][] nextIter = new boolean[_size][_size];
 	for (int j = 0; j < _size; j++) {
 	    for (int k = 0; k < _size; k++) {
 		nextIter[j][k] = iterateCell(j, k);
@@ -126,13 +128,7 @@ public class MainPanel extends JPanel {
      */
     
     public void backup() {
-	_backupCells = new Cell[_size][_size];
-	for (int j = 0; j < _size; j++) {
-	    for (int k = 0; k < _size; k++) {
-		_backupCells[j][k] = new Cell();
-		_backupCells[j][k].setAlive(_cells[j][k].getAlive());
-	    }
-	}
+	_backupCells = _cells;
     }
 
     /**
@@ -342,6 +338,7 @@ public class MainPanel extends JPanel {
     public MainPanel(int size) {
 	super();
 	_size = size;
+	nextIter = new boolean[_size][_size];
 	setLayout(new GridLayout(size, size));
 	_cells = new Cell[size][size];
 	for (int j = 0; j < size; j++) {

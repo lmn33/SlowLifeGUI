@@ -1,0 +1,5 @@
+1. MainPanel.backup()
+
+2. MainPanel.convertToInt()
+
+3. MainPanel.calculateNextIteration()
