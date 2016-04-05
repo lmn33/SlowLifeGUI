@@ -1,5 +1,21 @@
 1. MainPanel.backup()
 
+This I changed to just make the backup 2d array to be equal to the original. Originally it went through 2 for loops to make it equal to the original.
+Therefore this improvement was also a significant aid to performance.
+
+
 2. MainPanel.convertToInt()
 
+This method padded the number with 1000 zeroes and then made it into an int, this was not needed because the int passed in was the int needed.
+I took out the call which helped performance but also changed the code in case it was used elsewhere.
+
+
 3. MainPanel.calculateNextIteration()
+
+This minor change just stopped the program from creating more objects since there was already a nextIter array and it was already declared in main.
+
+
+4. MainPanel.runContinuous()
+
+This change was done because a double for loop was used to do some calculation with _r, however after they were done _r was returned to normal and therefore
+the arithmeticthat was  performed on it was not used.

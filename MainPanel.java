@@ -7,7 +7,7 @@ public class MainPanel extends JPanel {
 
     // Current configuration
     private Cell[][] _cells;
-
+    public static boolean running;
     // Backup configuration
     private Cell[][] _backupCells;
 
@@ -45,6 +45,11 @@ public class MainPanel extends JPanel {
 	String n = padding + String.valueOf(x);
 	int q = Integer.parseInt(n);*/
 	return x;
+    }
+    
+    public int showConvertInt(int x)
+    {
+    	return convertToInt(x);
     }
     
     private int getNumNeighbors(int x, int y) {
@@ -131,6 +136,15 @@ public class MainPanel extends JPanel {
 	_backupCells = _cells;
     }
 
+    public Cell[][] getBackUp()
+    {
+    	return _backupCells;
+    }
+    
+    public Cell[][] getCellsArray()
+    {
+    	return _cells;
+    }
     /**
      * This is for debug use.  It will display
      * the state of cells in a convenient format.
@@ -217,16 +231,17 @@ public class MainPanel extends JPanel {
 
     public void runContinuous() {
 	_running = true;
+	running=_running;
 	while (_running) {
 	    System.out.println("Running...");
 	    int origR = _r;
 	    try {
 		Thread.sleep(20);
 	    } catch (InterruptedException iex) { }
-	    for (int j=0; j < _maxCount; j++) {
+	    /*for (int j=0; j < _maxCount; j++) {
 	    	_r += (j % _size) % _maxCount;
 		_r += _maxCount;
-	    }
+	    }*/
 	    _r = origR;
 	    backup();
 	    calculateNextIteration();
@@ -239,9 +254,13 @@ public class MainPanel extends JPanel {
     
     public void stop() {
 	_running = false;
+	running = _running;
     }
    
-
+    public static boolean returnRunning()
+    {
+    	return running;
+    }
     /**
      * Convert the array of Cell objects into an 
      * array of booleans.
